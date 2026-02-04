@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PROFILE - Bana</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Italiana&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <style>
+        :root {
+            --primary-color: #333333;
+            --text-body: #444444;
+            --accent-pink: #ff8cb6;
+            --accent-blue: #70e8e0;
+            --accent-gold: #f0d550;
+            --bg-color: #ffffff;
+            --glass-bg: rgba(255, 255, 255, 0.9);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            font-family: 'Zen Kaku Gothic New', sans-serif;
+            color: var(--primary-color);
+            overflow-x: hidden;
+            line-height: 1.8;
+        }
+
+        #loading-screen {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 9999; background: #fff;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            transition: opacity 1.2s ease, visibility 1.2s;
+        }
+
+        #loading-screen.hidden { opacity: 0; visibility: hidden; }
+
+        .loading-logo {
+            font-family: 'Playfair Display', serif;
+            font-style: italic; font-size: 3rem;
+            color: var(--accent-pink); margin-bottom: 1rem;
+        }
+
+        #canvas-container {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 0; pointer-events: none;
+        }
+
+        .page-container { position: relative; z-index: 10; width: 100%; }
+
+        section {
+            min-height: 100vh; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; padding: 4rem 2rem;
+            box-sizing: border-box;
+        }
+
+        .hero-title {
+            font-family: 'Italiana', serif;
+            font-size: clamp(4rem, 10vw, 8rem);
+            margin: 0; line-height: 1;
+        }
+
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
+            padding: 4rem;
+            max-width: 900px;
+            width: 100%;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.05);
+            border: 1px solid rgba(255,255,255,0.5);
+        }
+
+        .profile-name { font-family: 'Italiana', serif; font-size: 3.5rem; margin-bottom: 0.5rem; }
+        .motto { font-size: 1.2rem; color: var(--accent-pink); font-weight: bold; margin-bottom: 2rem; letter-spacing: 0.2em; }
+
+        .likes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .like-item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.02);
+            border-left: 5px solid var(--accent-blue);
+        }
+
+        .like-title { font-weight: bold; font-size: 1.1rem; color: var(--primary-color); display: block; }
+        .like-desc { font-size: 0.9rem; color: #777; margin-top: 0.5rem; }
+
+        footer { padding: 4rem; text-align: center; font-family: 'Italiana', serif; font-size: 0.8rem; color: #999; }
+    </style>
+</head>
+<body>
+
+    <div id="loading-screen">
+        <div class="loading-logo">Bana</div>
+        <div class="loading-text">Loading Moments...</div>
+    </div>
+
+    <div id="canvas-container"></div>
+
+    <div class="page-container">
+        <section>
+            <span style="font-family: 'Playfair Display'; font-style: italic; color: var(--accent-pink); letter-spacing: 0.3em;">PORTFOLIO</span>
+            <h1 class="hero-title">Bana</h1>
+            <p style="letter-spacing: 0.5em; color: #888; margin-top: 1rem;">COLLECTION 2024</p>
+        </section>
+
+        <section id="about">
+            <div class="glass-card">
+                <div class="profile-name">Bana</div>
+                <div class="motto">座右の銘：七転八起</div>
+                
+                <p class="profile-desc">
+                    失敗を恐れず、何度でも立ち上がる。そんな「七転八起」の精神を大切にしています。<br>
+                    日常の小さな発見や、心動かされる瞬間を大切にしながら、新しい表現に挑戦し続けています。
+                </p>
+
+                <div class="likes-grid">
+                    <div class="like-item" style="border-color: #ffb7d5;">
+                        <span class="like-title">チョコレート</span>
+                        <span class="like-desc">元気が出る、私にとっての魔法のスイーツ。</span>
+                    </div>
+                    <div class="like-item" style="border-color: #70e8e0;">
+                        <span class="like-title">英語</span>
+                        <span class="like-desc">学ぶたびに、新しい世界がどんどん広がっていく感覚が好きです。</span>
+                    </div>
+                    <div class="like-item" style="border-color: #f0d550;">
+                        <span class="like-title">Creative Works</span>
+                        <span class="like-desc">想像したものを形にする、そのプロセスを楽しんでいます。</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            &copy; 2024 Bana. All Rights Reserved.
+        </footer>
+    </div>
+
+    <script>
+        // Loading Screen
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loading-screen').classList.add('hidden');
+            }, 1000);
+        });
+
+        // Simple Background Animation (Three.js)
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.getElementById('canvas-container').appendChild(renderer.domElement);
+
+        const geometry = new THREE.SphereGeometry(1, 32, 32);
+        const material = new THREE.MeshNormalMaterial({ wireframe: true, transparent: true, opacity: 0.1 });
+        const sphere = new THREE.Mesh(geometry, material);
+        scene.add(sphere);
+
+        camera.position.z = 3;
+
+        function animate() {
+            requestAnimationFrame(animate);
+            sphere.rotation.x += 0.002;
+            sphere.rotation.y += 0.002;
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+    </script>
+</body>
+</html>
