@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -19,35 +20,31 @@
             --accent-blue: #70e8e0;
             --accent-gold: #f0d550;
             --bg-color: #ffffff;
-            --glass-bg: rgba(255, 255, 255, 0.9);
+            --glass-bg: rgba(255, 255, 255, 0.85);
         }
 
         body {
-            margin: 0;
-            padding: 0;
+            margin: 0; padding: 0;
             background-color: var(--bg-color);
             font-family: 'Zen Kaku Gothic New', sans-serif;
             color: var(--primary-color);
-            overflow-x: hidden;
-            line-height: 1.8;
+            overflow-x: hidden; line-height: 1.8;
         }
 
+        /* Loading */
         #loading-screen {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             z-index: 9999; background: #fff;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
             transition: opacity 1.2s ease, visibility 1.2s;
         }
-
         #loading-screen.hidden { opacity: 0; visibility: hidden; }
-
         .loading-logo {
-            font-family: 'Playfair Display', serif;
-            font-style: italic; font-size: 3rem;
+            font-family: 'Playfair Display', serif; font-style: italic; font-size: 3rem;
             color: var(--accent-pink); margin-bottom: 1rem;
         }
 
+        /* Background */
         #canvas-container {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             z-index: 0; pointer-events: none;
@@ -62,42 +59,55 @@
         }
 
         .hero-title {
-            font-family: 'Italiana', serif;
-            font-size: clamp(4rem, 10vw, 8rem);
+            font-family: 'Italiana', serif; font-size: clamp(4rem, 10vw, 8rem);
             margin: 0; line-height: 1;
         }
 
+        /* Cards */
         .glass-card {
             background: var(--glass-bg);
             backdrop-filter: blur(20px);
             border-radius: 30px;
             padding: 4rem;
-            max-width: 900px;
-            width: 100%;
+            max-width: 900px; width: 100%;
             box-shadow: 0 20px 50px rgba(0,0,0,0.05);
             border: 1px solid rgba(255,255,255,0.5);
+            margin-bottom: 2rem;
         }
 
         .profile-name { font-family: 'Italiana', serif; font-size: 3.5rem; margin-bottom: 0.5rem; }
         .motto { font-size: 1.2rem; color: var(--accent-pink); font-weight: bold; margin-bottom: 2rem; letter-spacing: 0.2em; }
 
         .likes-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem; margin-top: 2rem;
         }
 
         .like-item {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 20px;
+            background: white; padding: 1.5rem; border-radius: 20px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.02);
             border-left: 5px solid var(--accent-blue);
         }
-
-        .like-title { font-weight: bold; font-size: 1.1rem; color: var(--primary-color); display: block; }
+        .like-title { font-weight: bold; font-size: 1.1rem; display: block; }
         .like-desc { font-size: 0.9rem; color: #777; margin-top: 0.5rem; }
+
+        /* Form Styling */
+        .form-group { margin-bottom: 1.5rem; text-align: left; }
+        label { display: block; margin-bottom: 0.5rem; font-weight: bold; font-size: 0.9rem; }
+        input, textarea {
+            width: 100%; padding: 1rem; border: 1px solid #ddd; border-radius: 10px;
+            font-family: inherit; font-size: 1rem; background: rgba(255,255,255,0.9);
+            box-sizing: border-box; transition: border 0.3s;
+        }
+        input:focus, textarea:focus { outline: none; border-color: var(--accent-pink); }
+        
+        button.submit-btn {
+            background: linear-gradient(45deg, var(--accent-pink), var(--accent-blue));
+            color: white; border: none; padding: 1rem 3rem; font-size: 1rem;
+            border-radius: 50px; cursor: pointer; transition: transform 0.3s, box-shadow 0.3s;
+            font-family: 'Italiana', serif; letter-spacing: 0.1em;
+        }
+        button.submit-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(255, 140, 182, 0.4); }
 
         footer { padding: 4rem; text-align: center; font-family: 'Italiana', serif; font-size: 0.8rem; color: #999; }
     </style>
@@ -145,6 +155,29 @@
             </div>
         </section>
 
+        <section id="contact">
+            <div class="glass-card">
+                <h2 style="font-family: 'Italiana', serif; font-size: 2.5rem; margin-bottom: 2rem; text-align: center;">Contact</h2>
+                <form id="contactForm" onsubmit="handleSubmit(event)">
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" placeholder="お名前" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" placeholder="メールアドレス" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Message</label>
+                        <textarea rows="5" placeholder="メッセージを入力してください" required></textarea>
+                    </div>
+                    <div style="text-align: center;">
+                        <button type="submit" class="submit-btn">SEND MESSAGE</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
         <footer>
             &copy; 2024 Bana. All Rights Reserved.
         </footer>
@@ -158,24 +191,30 @@
             }, 1000);
         });
 
-        // Simple Background Animation (Three.js)
+        // Form Submit Alert (Demo)
+        function handleSubmit(event) {
+            event.preventDefault();
+            alert("【デモ】送信が完了しました。\n（実際には送信されていません）");
+        }
+
+        // Background Animation (Three.js)
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
         const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
         renderer.setSize(window.innerWidth, window.innerHeight);
         document.getElementById('canvas-container').appendChild(renderer.domElement);
 
-        const geometry = new THREE.SphereGeometry(1, 32, 32);
-        const material = new THREE.MeshNormalMaterial({ wireframe: true, transparent: true, opacity: 0.1 });
+        const geometry = new THREE.SphereGeometry(1.2, 32, 32);
+        const material = new THREE.MeshNormalMaterial({ wireframe: true, transparent: true, opacity: 0.15 });
         const sphere = new THREE.Mesh(geometry, material);
         scene.add(sphere);
 
-        camera.position.z = 3;
+        camera.position.z = 3.5;
 
         function animate() {
             requestAnimationFrame(animate);
             sphere.rotation.x += 0.002;
-            sphere.rotation.y += 0.002;
+            sphere.rotation.y += 0.003;
             renderer.render(scene, camera);
         }
         animate();
